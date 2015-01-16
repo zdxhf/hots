@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="E:\littleTool\hotsAPI\webrelease" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/EntityFramework.dll" publishTime="05/29/2014 14:47:38" />
+    <file relUrl="bin/hotsAPI.pdb" publishTime="01/14/2015 15:00:27" />
+    <file relUrl="Global.asax" publishTime="01/04/2015 16:16:04" />
+    <file relUrl="bin/EntityFramework.xml" publishTime="05/29/2014 14:47:38" />
+    <file relUrl="Scripts/jquery.validate.js" publishTime="01/27/2014 10:09:40" />
+    <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="05/29/2014 14:48:01" />
+    <file relUrl="bin/System.Web.Mvc.xml" publishTime="05/29/2014 14:48:00" />
+    <file relUrl="Views/Home/AddHero.cshtml" publishTime="01/09/2015 14:26:27" />
+    <file relUrl="Content/loading3.gif" publishTime="01/13/2015 11:01:59" />
+    <file relUrl="Scripts/jquery-1.9.1.js" publishTime="01/06/2015 12:57:29" />
+    <file relUrl="bin/System.Web.Http.dll" publishTime="05/29/2014 14:48:01" />
+    <file relUrl="Content/loading.gif" publishTime="01/13/2015 13:57:25" />
+    <file relUrl="bin/System.Web.Helpers.dll" publishTime="05/29/2014 14:47:59" />
+    <file relUrl="bin/System.Net.Http.dll" publishTime="05/29/2014 14:48:01" />
+    <file relUrl="bin/System.Net.Http.Formatting.dll" publishTime="05/29/2014 14:48:01" />
+    <file relUrl="Views/Shared/Error.cshtml" publishTime="01/04/2015 16:16:04" />
+    <file relUrl="Scripts/jquery.validate.min.js" publishTime="05/29/2014 14:53:27" />
+    <file relUrl="bin/Newtonsoft.Json.xml" publishTime="05/29/2014 14:47:58" />
+    <file relUrl="bin/WebGrease.dll" publishTime="05/29/2014 14:48:04" />
+    <file relUrl="bin/System.Web.Mvc.dll" publishTime="05/29/2014 14:48:00" />
+    <file relUrl="bin/System.Web.WebPages.Deployment.xml" publishTime="05/29/2014 14:47:59" />
+    <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="05/29/2014 14:48:00" />
+    <file relUrl="bin/System.Web.WebPages.dll" publishTime="05/29/2014 14:47:59" />
+    <file relUrl="packages.config" publishTime="01/04/2015 16:16:23" />
+    <file relUrl="bin/System.Web.Http.xml" publishTime="05/29/2014 14:48:02" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="01/14/2015 14:51:36" />
+    <file relUrl="bin/System.Web.Razor.xml" publishTime="05/29/2014 14:47:59" />
+    <file relUrl="bin/System.Web.Http.WebHost.xml" publishTime="05/29/2014 14:48:02" />
+    <file relUrl="bin/System.Web.WebPages.xml" publishTime="05/29/2014 14:48:00" />
+    <file relUrl="bin/Antlr3.Runtime.dll" publishTime="05/29/2014 14:48:04" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="05/29/2014 14:47:58" />
+    <file relUrl="bin/hotsAPI.dll" publishTime="01/14/2015 15:00:27" />
+    <file relUrl="Scripts/jquery.1.9.1.min.js" publishTime="09/02/2014 11:24:10" />
+    <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="01/27/2014 10:09:44" />
+    <file relUrl="Content/Site.css" publishTime="01/13/2015 13:59:46" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="01/09/2015 13:19:53" />
+    <file relUrl="bin/System.Net.Http.WebRequest.dll" publishTime="05/29/2014 14:48:01" />
+    <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="08/25/2014 17:42:16" />
+    <file relUrl="bin/System.Web.Razor.dll" publishTime="05/29/2014 14:47:59" />
+    <file relUrl="bin/System.Web.Helpers.xml" publishTime="05/29/2014 14:47:59" />
+    <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="05/29/2014 14:47:59" />
+    <file relUrl="bin/System.Web.Http.WebHost.dll" publishTime="05/29/2014 14:48:02" />
+    <file relUrl="bin/System.Net.Http.xml" publishTime="05/29/2014 14:48:01" />
+    <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="05/29/2014 14:47:57" />
+    <file relUrl="Web.config" publishTime="01/09/2015 17:57:46" />
+    <file relUrl="Views/_ViewStart.cshtml" publishTime="01/04/2015 16:16:04" />
+    <file relUrl="bin/System.Net.Http.Formatting.xml" publishTime="05/29/2014 14:48:01" />
+    <file relUrl="favicon.ico" publishTime="01/04/2015 16:16:04" />
+    <file relUrl="bin/System.Web.Providers.dll" publishTime="05/29/2014 14:48:03" />
+    <file relUrl="bin/System.Web.Optimization.dll" publishTime="05/29/2014 14:48:04" />
+    <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="01/27/2014 10:09:44" />
+    <file relUrl="Views/Web.config" publishTime="01/04/2015 16:16:04" />
+    <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="05/29/2014 14:48:00" />
+  </publishProfile>
+</publishData>

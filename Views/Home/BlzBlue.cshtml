@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "BlzBlue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+.featured a
+{
+    font-size:small;
+    color: white;
+} 
+.nav,.nav a
+{
+    font-size:small;
+    font-weight:bold;
+    color: #3e5667;
+    height:30px;
+    line-height:30px;
+}
+.nav #navPre, .nav #navNex {
+    display: inline-block;
+    background-color: #d3dce0;
+    border: 1px solid #787878;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 8px;
+    height: 15px;
+    width: 15px;
+    padding: 7px;
+    line-height:12px;
+} 
+table
+{
+    border-spacing:10px;
+    border:1px solid #aaa;
+    width:99.9%;
+    color: #3e5667;
+    font-size:13px;
+}
+table td
+{
+    border-left:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    padding:10px;
+}
+
+#news {
+    position: relative;
+}
+#loading {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+    #loading #iron {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background: url("/Content/loading.gif") no-repeat;
+    }
+
+</style>
+
+<div id="body">
+    <section class="featured">
+        <div class="content-wrapper">
+             <hgroup class="title">
+                <h1>记录暴雪游戏相关资讯和更新，开发中。。。<span class="float-right">@Html.ActionLink("添加记录", "ApiManual", null, new { target = "_blank" })</span></h1>                    
+            </hgroup>  
+               
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        <div class="nav"><a href="~/">暴雪资讯</a>> <a href="~/">首页</a><span id="newsNo" hidden="hidden"></span><span class="nav float-right"><span id="navPre"><</span> <span id="navNex">></span></span></div>
+        <div id="news">
+        <table><thead><tr><td style="width:10%">游戏</td><td style="width:10%">类型</td><td style="width:40%">主题</td><td style="width:10%">链接</td><td style="width:20%">时间</td></tr></thead><tbody class="tableContent"></tbody></table>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        update();
+        $.ajax({
+            url: '@Url.Content("~/api/getNews")',
+            type: 'get',
+            data: { act: 0 },
+            success: function (news) {
+                for (var i = 0; i < news.length; i++) {
+                    var msg = news[i];
+                    if (i % 2 == 0) {
+                        $('.tableContent').append("<tr style='background-color:#F8F8F8'><td>" + msg.Type + "</td><td>" + msg.Type + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link + "'>" + msg.From + "</a></td><td>" + msg.Date + "</td><tr>");
+                    }
+                    else {
+                        $('.tableContent').append("<tr><td>" + msg.Type + "</td><td>" + msg.Type + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link + "'>" + msg.From + "</a></td><td>" + msg.Date + "</td><tr>");
+                    }
+                }
+                $('#newsNo').html(0);
+                $('#navPre').hide();
+                $('#loading').remove();
+            },
+            error: function (err) {
+                $('#news').html('Error: ' + err);
+            }
+        });
+    });
+    $('#navPre').click(function () {
+        update();
+        var no = Number($('#newsNo').html()) - 2;
+        $.ajax({
+            url: '@Url.Content("~/api/getNews")',
+            type: 'get',
+            data: { act: no },
+            success: function (news) {
+                var i = 0;
+                for (i = 0; i < news.length; i++) {
+                    var msg = news[i];
+                    if (i % 2 == 0) {
+                        $('.tableContent').append("<tr style='background-color:#F8F8F8'><td>" + msg.Type + "</td><td>" + msg.Type + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link + "'>" + msg.From + "</a></td><td>" + msg.Date + "</td><tr>");
+                    }
+                    else {
+                        $('.tableContent').append("<tr><td>" + msg.Type + "</td><td>" + msg.Type + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link + "'>" + msg.From + "</a></td><td>" + msg.Date + "</td><tr>");
+                    }
+                }
+                $('#newsNo').html(no);
+                $('#loading').remove();
+                $('#navNex').show();
+                $('#navPre').show();
+                if (no == 0) {
+                    $('#navPre').hide();
+                }
+            },
+            error: function (err) {
+                $('#news').html('Error: ' + err);
+            }
+        });
+    });
+    $('#navNex').click(function () {
+        update();      
+        var no = Number($('#newsNo').html()) + 2;
+        $.ajax({
+            url: '@Url.Content("~/api/getNews")',
+            type: 'get',
+            data: { act: no },
+            success: function (news) {
+                var i = 0;
+                for (i = 0; i < news.length; i++) {
+                    var msg = news[i];
+                    if (i % 2 == 0) {
+                        $('.tableContent').append("<tr style='background-color:#F8F8F8'><td>" + msg.Type + "</td><td>" + msg.Type + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link + "'>" + msg.From + "</a></td><td>" + msg.Date + "</td><tr>");
+                    }
+                    else {
+                        $('.tableContent').append("<tr><td>" + msg.Type + "</td><td>" + msg.Type + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link + "'>" + msg.From + "</a></td><td>" + msg.Date + "</td><tr>");
+                    }
+                }
+                $('#newsNo').html(no);
+                $('#loading').remove();
+                $('#navNex').show();
+                $('#navPre').show();
+                if (i < 2) {
+                    $('#navNex').hide();
+                }
+            },
+            error: function (err) {
+                $('#news').html('Error: ' + err);
+            }
+        });
+    });
+    function update() {
+        $('#news').append('<div id="loading"><div id="iron"></div>');
+        $('.tableContent').html("");
+    };
+    </script>
