@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model hotsAPI.Models.GameNews
+<style>
+select 
+{
+    font-size:1.2em;
+    margin: 5px 0 6px;
+    padding: 5px;
+    width: 300px;
+} 
+</style>
+<div id="body">
+    <section class="featured">
+        <div class="content-wrapper">
+             <hgroup class="title">
+                <h1>添加新记录</h1>                    
+            </hgroup>  
+               
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        @using (Html.BeginForm("addRecords", "api"))
+        {
+            @Html.DisplayNameFor(news => news.From)  
+            @Html.DropDownList("From",ViewData["FromList"] as SelectList,"请选择")
+            @Html.ValidationMessageFor(news => news.From)
+            <br />
+            @Html.DisplayNameFor(news => news.Type)  
+            @Html.DropDownList("Type", ViewData["TypeList"] as SelectList, "请选择")
+            @Html.ValidationMessageFor(news => news.Type)
+            <br />
+            @Html.DisplayNameFor(news => news.Title)  
+            @Html.TextBox("Title")
+            @Html.ValidationMessageFor(news => news.Title)
+            <br />
+            @Html.DisplayNameFor(news => news.Link)  
+            @Html.TextBox("Link")
+            @Html.ValidationMessageFor(news => news.Link)
+            <br />
+            <input type="submit" />
+        }
+    </section>
+</div>
