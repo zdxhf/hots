@@ -20,8 +20,20 @@ namespace hotsAPI.Models
 
         [Required]
         [DataMember(IsRequired = true)]
-        [DisplayName("原帖链接")]
-        public string Link { get; set; }
+        [DisplayName("引用网站一")]
+        public string WebSite1 { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        [DisplayName("详细链接一")]
+        public string Link1 { get; set; }
+
+        [DisplayName("引用网站二")]
+        public string WebSite2 { get; set; }
+
+        [DisplayName("详细链接二")]
+        public string Link2 { get; set; }
+
 
         [Required]
         [DataMember(IsRequired = true)]
@@ -30,7 +42,12 @@ namespace hotsAPI.Models
         
         [Required]
         [DataMember(IsRequired = true)]
-        [DisplayName("主题")]
+        [DisplayName("主题内容")]
         public string Title { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        [DisplayName("发布日期")]
+        public string IssueDate { get; set; }
     }
 }

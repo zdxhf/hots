@@ -438,65 +438,69 @@ namespace hotsAPI.Controllers
             MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             try
             {
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM gamenews order by id desc limit "+act+",2", conn);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM gamenews order by id desc limit "+act+",5", conn);
                 conn.Open();
                 MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 while(reader.Read())
                 {
                     GameNews gu = new GameNews();
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        PropertyInfo property = gu.GetType().GetProperty(reader.GetName(i));
-                        property.SetValue(gu, (reader.IsDBNull(i)) ? null : reader.GetValue(i), null);
-                    }
+                    gu.From = reader["From"].ToString();
+                    gu.Type = reader["Type"].ToString();
+                    gu.Link1 = reader["Link1"].ToString();
+                    gu.Link2 = reader["Link2"].ToString();
+                    gu.WebSite1 = reader["WebSite1"].ToString();
+                    gu.WebSite2 = reader["WebSite2"].ToString();
+                    gu.IssueDate =DateTime.Parse(reader["IssueDate"].ToString()).ToShortDateString();
+                    gu.Title = reader["Title"].ToString();
+                    //for (int i = 0; i < reader.FieldCount; i++)
+                    //{
+                    //    PropertyInfo property = gu.GetType().GetProperty(reader.GetName(i));
+                    //    property.SetValue(gu, (reader.IsDBNull(i)) ? null : reader.GetValue(i), null);
+                    //}
                     news.Add(gu);
                 }
                 reader.Close();
                 return news;
 
             }
-            catch (Exception)
-            {
-                return null;
-            }
             finally
             {
                 if (conn.State != ConnectionState.Closed)
                     conn.Close();
             }
         }
-        [HttpGet]
-        public GameNews getLastNews()
-        {
-            GameNews gu = new GameNews();
-            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            try
-            {
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM gamenews order by date desc limit 0,1" , conn);
-                conn.Open();
+        //[HttpGet]
+        //public GameNews getLastNews()
+        //{
+        //    GameNews gu = new GameNews();
+        //    MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        //    try
+        //    {
+        //        MySqlCommand cmd = new MySqlCommand("SELECT * FROM gamenews order by date desc limit 0,1" , conn);
+        //        conn.Open();
 
-                MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection | CommandBehavior.SingleResult | CommandBehavior.SingleRow);
-                reader.Read();
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    PropertyInfo property = gu.GetType().GetProperty(reader.GetName(i));
-                    property.SetValue(gu, (reader.IsDBNull(i)) ? null : reader.GetValue(i), null);
+        //        MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection | CommandBehavior.SingleResult | CommandBehavior.SingleRow);
+        //        reader.Read();
+        //        for (int i = 0; i < reader.FieldCount; i++)
+        //        {
+        //            PropertyInfo property = gu.GetType().GetProperty(reader.GetName(i));
+        //            property.SetValue(gu, (reader.IsDBNull(i)) ? null : reader.GetValue(i), null);
 
-                }
-                reader.Close();
-                return gu;
+        //        }
+        //        reader.Close();
+        //        return gu;
 
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            finally
-            {
-                if (conn.State != ConnectionState.Closed)
-                    conn.Close();
-            }
-        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //    finally
+        //    {
+        //        if (conn.State != ConnectionState.Closed)
+        //            conn.Close();
+        //    }
+        //}
 
 
         //[HttpPost]

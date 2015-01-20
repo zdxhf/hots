@@ -51,18 +51,26 @@ namespace hotsAPI.Controllers
             try
             {
                 ArrayList paraList1 = new ArrayList();
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO gamenews (`Type`,`Title`,`FROM`,`Link`,`Date`) VALUES(@Type,@Title,@From,@Link,@Date)", conn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO gamenews (`Type`,`Title`,`FROM`,`Link1`,`Date`,`WebSite1`,`Link2`,`WebSite2`,`IssueDate`) VALUES(@Type,@Title,@From,@Link1,@Date,@WebSite1,@Link2,@WebSite2,@IssueDate)", conn);
                 conn.Open();
                 MySqlParameter p1 = new MySqlParameter("@Type", gn.Type);
                 MySqlParameter p2 = new MySqlParameter("@Title", gn.Title);
                 MySqlParameter p3 = new MySqlParameter("@From", gn.From);
-                MySqlParameter p4 = new MySqlParameter("@Link", gn.Link);
+                MySqlParameter p4 = new MySqlParameter("@Link1", gn.Link1);
                 MySqlParameter p5 = new MySqlParameter("@Date", gn.Date);
+                MySqlParameter p6 = new MySqlParameter("@WebSite1", gn.WebSite1);
+                MySqlParameter p7 = new MySqlParameter("@Link2", gn.Link2);
+                MySqlParameter p8 = new MySqlParameter("@WebSite2", gn.WebSite2);
+                MySqlParameter p9 = new MySqlParameter("@IssueDate", gn.IssueDate);
                 paraList1.Add(p1);
                 paraList1.Add(p2);
                 paraList1.Add(p3);
                 paraList1.Add(p4);
                 paraList1.Add(p5);
+                paraList1.Add(p6);
+                paraList1.Add(p7);
+                paraList1.Add(p8);
+                paraList1.Add(p9);
                 for (int j = 0; j < paraList1.Count; j++)
                 {
                     cmd.Parameters.Add((object)paraList1[j]);

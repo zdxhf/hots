@@ -35,9 +35,25 @@ select
             @Html.TextBox("Title")
             @Html.ValidationMessageFor(news => news.Title)
             <br />
-            @Html.DisplayNameFor(news => news.Link)  
-            @Html.TextBox("Link")
-            @Html.ValidationMessageFor(news => news.Link)
+            @Html.DisplayNameFor(news => news.WebSite1)  
+            @Html.TextBox("WebSite1")
+            @Html.ValidationMessageFor(news => news.WebSite1)
+            <br />
+            @Html.DisplayNameFor(news => news.Link1)  
+            @Html.TextBox("Link1")
+            @Html.ValidationMessageFor(news => news.Link1)
+            <br />
+            @Html.DisplayNameFor(news => news.WebSite2)  
+            @Html.TextBox("WebSite2")
+            @Html.ValidationMessageFor(news => news.WebSite2)
+            <br />
+            @Html.DisplayNameFor(news => news.Link2)  
+            @Html.TextBox("Link2")
+            @Html.ValidationMessageFor(news => news.Link2)
+            <br />
+            @Html.DisplayNameFor(news => news.IssueDate)  
+            @Html.TextBox("IssueDate")
+            @Html.ValidationMessageFor(news => news.IssueDate)
             <br />
             <input type="submit" />
         }
