@@ -21,7 +21,7 @@ select
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
-        @using (Html.BeginForm("addRecords", "api"))
+        @using (Html.BeginForm())
         {
             @Html.DisplayNameFor(news => news.From)  
             @Html.DropDownList("From",ViewData["FromList"] as SelectList,"请选择")

@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 using System.Reflection;
 using System.Web.Script.Serialization;
 using System.Text;
+using System.Collections;
 
 namespace hotsAPI.Controllers
 {
@@ -498,7 +499,43 @@ namespace hotsAPI.Controllers
         }
 
 
-
+        //[HttpPost]
+        //public bool addRecords(GameNews gn)
+        //{
+        //    gn.Date = DateTime.Now.ToString();
+        //    MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+        //    try
+        //    {
+        //        ArrayList paraList1 = new ArrayList();
+        //        MySqlCommand cmd = new MySqlCommand("INSERT INTO gamenews (`Type`,`Title`,`FROM`,`Link`,`Date`) VALUES(@Type,@Title,@From,@Link,@Date)", conn);
+        //        conn.Open();
+        //        MySqlParameter p1 = new MySqlParameter("@Type", gn.Type);
+        //        MySqlParameter p2 = new MySqlParameter("@Title", gn.Title);
+        //        MySqlParameter p3 = new MySqlParameter("@From", gn.From);
+        //        MySqlParameter p4 = new MySqlParameter("@Link", gn.Link);
+        //        MySqlParameter p5 = new MySqlParameter("@Date", gn.Date);
+        //        paraList1.Add(p1);
+        //        paraList1.Add(p2);
+        //        paraList1.Add(p3);
+        //        paraList1.Add(p4);
+        //        paraList1.Add(p5);
+        //        for (int j = 0; j < paraList1.Count; j++)
+        //        {
+        //            cmd.Parameters.Add((object)paraList1[j]);
+        //        }
+        //        cmd.ExecuteNonQuery();
+        //        return true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //    finally
+        //    {
+        //        if (conn.State != ConnectionState.Closed)
+        //            conn.Close();
+        //    }
+        //}
         //[HttpGet]
         //public GameNews Nav(int act)
         //{
