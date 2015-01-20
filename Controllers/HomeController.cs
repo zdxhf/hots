@@ -11,6 +11,7 @@ using System.Data;
 
 namespace hotsAPI.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -43,7 +44,6 @@ namespace hotsAPI.Controllers
         }
 
         [HttpPost]
-        [HandleError]
         public ActionResult AddRecords(GameNews gn)
         {
             gn.Date = DateTime.Now.ToString();
