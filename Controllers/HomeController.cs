@@ -51,13 +51,13 @@ namespace hotsAPI.Controllers
         //}
         public ActionResult AddRecords(string from)
         {
-            List<SelectListItem> fromList = new List<SelectListItem>();       
-            fromList.Add(new SelectListItem { Text = "风暴英雄", Value = "风暴英雄" });
+            List<SelectListItem> fromList = new List<SelectListItem>();
+            fromList.Add(new SelectListItem { Text = "风暴英雄", Value = "Steam" });
             fromList.Add(new SelectListItem { Text = "魔兽世界", Value = "魔兽世界" });
-            fromList.Add(new SelectListItem { Text = "炉石传说", Value = "炉石传说" });
-            fromList.Add(new SelectListItem { Text = "星际争霸", Value = "星际争霸" });
-            fromList.Add(new SelectListItem { Text = "魔兽争霸", Value = "魔兽争霸" });
-            fromList.Add(new SelectListItem { Text = "其他相关", Value = "其他相关" });
+            fromList.Add(new SelectListItem { Text = "炉石传说", Value = "Hots" });
+            fromList.Add(new SelectListItem { Text = "星际争霸", Value = "Stars" });
+            fromList.Add(new SelectListItem { Text = "魔兽争霸", Value = "Wars" });
+            fromList.Add(new SelectListItem { Text = "其他相关", Value = "Others" });
             switch (from)
             {
                 case "Steam":
@@ -82,20 +82,7 @@ namespace hotsAPI.Controllers
                     fromList.Insert(0,new SelectListItem { Text = "请选择", Value = "" });
                     break;
             }
-            ViewData["From"] = fromList;
-            //if (from == "Hots")
-            //{
-            //    ViewData["FromList"] = new SelectList(fromList, "Value", "Text", "炉石传说");
-            //}
-            //if (from == "Wow")
-            //{
-            //    ViewData["FromList"] = new SelectList(fromList, "Value", "Text", "魔兽世界");
-            //}
-            //else
-            //{
-            //    fromList.Insert(0,new SelectListItem { Text = "请选择", Value = "" });
-            //    ViewData["FromList"] = new SelectList(fromList, "Value", "Text", "");
-            //}
+            ViewData["FromList"] = new SelectList(fromList, "Value", "Text", "");
             List<SelectListItem> typeList = new List<SelectListItem>();
             typeList.Add(new SelectListItem { Text = "蓝贴发布", Value = "蓝贴发布" });
             typeList.Add(new SelectListItem { Text = "前瞻咨询", Value = "前瞻咨询" });

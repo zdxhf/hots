@@ -41,7 +41,7 @@ fieldset .title1
             <fieldset>
             <legend>createNews</legend>
             @Html.LabelFor(news => news.From, new { @class = "title" })  
-            @Html.DropDownList("From")
+            @Html.DropDownList("From", ViewData["FromList"] as SelectList,"请选择")
             @Html.ValidationMessageFor(news => news.From)
             <br />
             @Html.LabelFor(news => news.Type, new { @class = "title" })  
