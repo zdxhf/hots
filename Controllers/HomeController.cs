@@ -49,37 +49,37 @@ namespace hotsAPI.Controllers
         //    ViewData["TypeList"] = new SelectList(typeList, "Value", "Text", "");
         //    return View();
         //}
-        public ActionResult AddRecords(string from)
+        [HttpGet]
+        public ActionResult AddRecords(string catelog)
         {
             List<SelectListItem> fromList = new List<SelectListItem>();
-            fromList.Add(new SelectListItem { Text = "风暴英雄", Value = "Steam" });
+            fromList.Add(new SelectListItem { Text = "风暴英雄", Value = "风暴英雄" });
             fromList.Add(new SelectListItem { Text = "魔兽世界", Value = "魔兽世界" });
-            fromList.Add(new SelectListItem { Text = "炉石传说", Value = "Hots" });
-            fromList.Add(new SelectListItem { Text = "星际争霸", Value = "Stars" });
-            fromList.Add(new SelectListItem { Text = "魔兽争霸", Value = "Wars" });
-            fromList.Add(new SelectListItem { Text = "其他相关", Value = "Others" });
-            switch (from)
+            fromList.Add(new SelectListItem { Text = "炉石传说", Value = "炉石传说" });
+            fromList.Add(new SelectListItem { Text = "星际争霸", Value = "星际争霸" });
+            fromList.Add(new SelectListItem { Text = "魔兽争霸", Value = "魔兽争霸" });
+            fromList.Add(new SelectListItem { Text = "其他相关", Value = "其他相关" });
+            switch (catelog)
             {
                 case "Steam":
-                    fromList[0].Selected = true;                   
+                    ViewData["From"] = "风暴英雄";                  
                     break;
                 case "Wow":
-                    fromList[1].Selected = true;
+                    ViewData["From"] = "魔兽世界";
                     break;
                 case "Hots":
-                    fromList[2].Selected = true;
+                    ViewData["From"] = "炉石传说";
                     break;
                 case "Stars":
-                    fromList[3].Selected = true;
+                    ViewData["From"] = "星际争霸";
                     break;
                 case "Wars":
-                    fromList[4].Selected = true;
+                    ViewData["From"] = "魔兽争霸";
                     break;
                 case "Others":
-                    fromList[5].Selected = true;
+                    ViewData["From"] = "其他相关";
                     break;
                 default:
-                    fromList.Insert(0,new SelectListItem { Text = "请选择", Value = "" });
                     break;
             }
             ViewData["FromList"] = new SelectList(fromList, "Value", "Text", "");

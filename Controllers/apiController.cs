@@ -469,7 +469,13 @@ namespace hotsAPI.Controllers
             List<GameNews> news = News(sql);
             return news;
         }
-
+        [HttpGet]
+        public List<GameNews> getStormNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='风暴英雄'  order by id desc limit " + act + ",5";
+            List<GameNews> news = News(sql);
+            return news;
+        }
         [HttpGet]
         public List<GameNews> getWowNews(int act)
         {
@@ -480,7 +486,7 @@ namespace hotsAPI.Controllers
         [HttpGet]
         public List<GameNews> getHotsNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='风暴英雄'  order by id desc limit " + act + ",5";
+            string sql = "SELECT * FROM gamenews Where `From`='炉石传说'  order by id desc limit " + act + ",5";
             List<GameNews> news = News(sql);
             return news;
         }

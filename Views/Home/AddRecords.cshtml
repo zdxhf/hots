@@ -3,15 +3,15 @@
 }
 @model hotsAPI.Models.GameNews
 <style>
-select 
-{
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    color: #808080;
-    font-size: 13px;
-    line-height: 18px;
-    padding: 4px;
-}
+    select {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        color: #808080;
+        font-size: 13px;
+        line-height: 18px;
+        padding: 4px;
+        margin: 5px 0 6px 0;
+    }
 fieldset .title,fieldset .title1
 {
     display:inline-block;
@@ -41,7 +41,13 @@ fieldset .title1
             <fieldset>
             <legend>createNews</legend>
             @Html.LabelFor(news => news.From, new { @class = "title" })  
-            @Html.DropDownList("From", ViewData["FromList"] as SelectList,"请选择")
+            @{ if (ViewData["From"] == null)
+                   {   @Html.DropDownList("From", ViewData["FromList"] as SelectList, "请选择"); }
+               else
+                   {
+                       @Html.DropDownList("From", ViewData["FromList"] as SelectList);
+                   }
+            }
             @Html.ValidationMessageFor(news => news.From)
             <br />
             @Html.LabelFor(news => news.Type, new { @class = "title" })  
@@ -62,11 +68,11 @@ fieldset .title1
             <br />
             @Html.LabelFor(news => news.WebSite2, new { @class = "title" })  
             @Html.TextBox("WebSite2")
-            @Html.Label("相关网站名，不是必填",new { @class = "title1" })
+            @Html.Label("相关网站名，非必填",new { @class = "title1" })
             <br />
             @Html.LabelFor(news => news.Link2, new { @class = "title" })  
             @Html.TextBox("Link2")
-            @Html.Label("相关网站链接，不是必填", new { @class = "title1" })
+            @Html.Label("相关网站链接，非必填", new { @class = "title1" })
             <br />
             @Html.LabelFor(news => news.IssueDate, new { @class = "title" })  
             @Html.TextBox("IssueDate", "", new { @readonly = "true" })
