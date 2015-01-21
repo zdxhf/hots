@@ -5,11 +5,26 @@
 <style>
 select 
 {
-    font-size:1.2em;
-    margin: 5px 0 6px;
-    padding: 5px;
-    width: 300px;
-} 
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #808080;
+    font-size: 13px;
+    line-height: 18px;
+    padding: 4px;
+}
+fieldset .title,fieldset .title1
+{
+    display:inline-block;
+    width:100px;
+    font-size:15px;
+    color: #808080;
+    font-weight:normal;
+}
+fieldset .title1
+{
+    font-size:13px;
+    width:auto;
+}
 </style>
 <div id="body">
     <section class="featured">
@@ -23,39 +38,51 @@ select
     <section class="content-wrapper main-content clear-fix">
         @using (Html.BeginForm())
         {
-            @Html.DisplayNameFor(news => news.From)  
-            @Html.DropDownList("From",ViewData["FromList"] as SelectList,"请选择")
+            <fieldset>
+            <legend>createNews</legend>
+            @Html.LabelFor(news => news.From, new { @class = "title" })  
+            @Html.DropDownList("From")
             @Html.ValidationMessageFor(news => news.From)
             <br />
-            @Html.DisplayNameFor(news => news.Type)  
+            @Html.LabelFor(news => news.Type, new { @class = "title" })  
             @Html.DropDownList("Type", ViewData["TypeList"] as SelectList, "请选择")
             @Html.ValidationMessageFor(news => news.Type)
             <br />
-            @Html.DisplayNameFor(news => news.Title)  
+            @Html.LabelFor(news => news.Title, new { @class = "title" })  
             @Html.TextBox("Title")
             @Html.ValidationMessageFor(news => news.Title)
             <br />
-            @Html.DisplayNameFor(news => news.WebSite1)  
+            @Html.LabelFor(news => news.WebSite1, new { @class = "title" })  
             @Html.TextBox("WebSite1")
             @Html.ValidationMessageFor(news => news.WebSite1)
             <br />
-            @Html.DisplayNameFor(news => news.Link1)  
+            @Html.LabelFor(news => news.Link1, new { @class = "title" })  
             @Html.TextBox("Link1")
             @Html.ValidationMessageFor(news => news.Link1)
             <br />
-            @Html.DisplayNameFor(news => news.WebSite2)  
+            @Html.LabelFor(news => news.WebSite2, new { @class = "title" })  
             @Html.TextBox("WebSite2")
-            @Html.ValidationMessageFor(news => news.WebSite2)
+            @Html.Label("相关网站名，不是必填",new { @class = "title1" })
             <br />
-            @Html.DisplayNameFor(news => news.Link2)  
+            @Html.LabelFor(news => news.Link2, new { @class = "title" })  
             @Html.TextBox("Link2")
-            @Html.ValidationMessageFor(news => news.Link2)
+            @Html.Label("相关网站链接，不是必填", new { @class = "title1" })
             <br />
-            @Html.DisplayNameFor(news => news.IssueDate)  
-            @Html.TextBox("IssueDate")
+            @Html.LabelFor(news => news.IssueDate, new { @class = "title" })  
+            @Html.TextBox("IssueDate", "", new { @readonly = "true" })
             @Html.ValidationMessageFor(news => news.IssueDate)
             <br />
-            <input type="submit" />
+            </fieldset>
+            <input type="submit" value="提交" />
         }
     </section>
 </div>
+<script type="text/javascript">
+    $("#IssueDate").datepicker({
+        numberOfMonths: 1,
+        changeYear: false,
+        "yearRange": '2000:2020',
+        showMonthAfterYear: true,
+        dateFormat: 'yy-mm-dd'
+    });
+</script>

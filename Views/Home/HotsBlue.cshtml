@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "BlzBlue";
+    ViewBag.Title = "HotsNews";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section scripts
@@ -13,7 +13,7 @@
     <section class="featured">
         <div class="content-wrapper">
              <hgroup class="title">
-                <h1>记录暴雪游戏相关资讯和更新，开发中。。。<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", null, new { target = "_blank" })</span></h1>                    
+                <h1>暴风英雄最新更新<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", new { from = "hots" }, new { target = "_blank" })</span></h1>                    
             </hgroup>  
                
         </div>
@@ -26,11 +26,11 @@
     </section>
 </div>
 <script type="text/javascript">
-    var acturl = '@Url.Content("~/api/getNews")';
+    var acturl = '@Url.Content("~/api/getHotsNews")';
     $(document).ready(function () {
         refresh(acturl);
     });
-    $('#navPre').click(function () {     
+    $('#navPre').click(function () {
         refreshPre(acturl);
     });
     $('#navNex').click(function () {

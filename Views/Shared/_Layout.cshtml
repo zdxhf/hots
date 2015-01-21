@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
 @*    @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
     <header>
     <div class="content-wrapper">
@@ -24,8 +26,8 @@
             <div class="float-right">
                 <nav>
                     <ul id="menu">
-                        <li>@Html.ActionLink("风暴英雄", "Index", "Home")</li>
-                        <li>@Html.ActionLink("魔兽世界", "About", "Home")</li>
+                        <li>@Html.ActionLink("风暴英雄", "HotsBlue", "Home")</li>
+                        <li>@Html.ActionLink("魔兽世界", "WowBlue", "Home")</li>
                         <li>@Html.ActionLink("炉石传说", "Contact", "Home")</li>
                         <li>@Html.ActionLink("星际争霸", "Contact", "Home")</li>
                         <li>@Html.ActionLink("魔兽争霸", "Contact", "Home")</li>

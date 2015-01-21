@@ -430,18 +430,16 @@ namespace hotsAPI.Controllers
             }
         }
 
-        [HttpGet]
-        public  List<GameNews> getNews(int act)
+        private List<GameNews> News(string sql)
         {
             List<GameNews> news = new List<GameNews>();
-            
             MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             try
             {
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM gamenews order by id desc limit "+act+",5", conn);
+                MySqlCommand cmd = new MySqlCommand(sql,conn);
                 conn.Open();
                 MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                while(reader.Read())
+                while (reader.Read())
                 {
                     GameNews gu = new GameNews();
                     gu.From = reader["From"].ToString();
@@ -450,24 +448,41 @@ namespace hotsAPI.Controllers
                     gu.Link2 = reader["Link2"].ToString();
                     gu.WebSite1 = reader["WebSite1"].ToString();
                     gu.WebSite2 = reader["WebSite2"].ToString();
-                    gu.IssueDate =DateTime.Parse(reader["IssueDate"].ToString()).ToShortDateString();
+                    gu.IssueDate = DateTime.Parse(reader["IssueDate"].ToString()).ToShortDateString();
                     gu.Title = reader["Title"].ToString();
-                    //for (int i = 0; i < reader.FieldCount; i++)
-                    //{
-                    //    PropertyInfo property = gu.GetType().GetProperty(reader.GetName(i));
-                    //    property.SetValue(gu, (reader.IsDBNull(i)) ? null : reader.GetValue(i), null);
-                    //}
                     news.Add(gu);
                 }
                 reader.Close();
                 return news;
-
             }
             finally
             {
                 if (conn.State != ConnectionState.Closed)
                     conn.Close();
             }
+        }
+        
+        [HttpGet]
+        public  List<GameNews> getNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews order by id desc limit " + act + ",5";
+            List<GameNews> news = News(sql);
+            return news;
+        }
+
+        [HttpGet]
+        public List<GameNews> getWowNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='魔兽世界'  order by id desc limit " + act + ",5";
+            List<GameNews> news = News(sql);
+            return news;
+        }
+        [HttpGet]
+        public List<GameNews> getHotsNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='风暴英雄'  order by id desc limit " + act + ",5";
+            List<GameNews> news = News(sql);
+            return news;
         }
         //[HttpGet]
         //public GameNews getLastNews()
