@@ -25,6 +25,42 @@ fieldset .title1
     font-size:13px;
     width:auto;
 }
+fieldset .short
+{
+    width:100px;
+}
+fieldset .shortKeyword
+{
+    width:70px;
+}
+fieldset #addKeyWord
+{
+    margin-left:10px;   
+    border-radius: 3px;
+    color: #808080;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 18px;
+    padding: 4px;
+}
+input[type="button"]:hover
+{
+    box-shadow:0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
+    outline:0 none;
+}
+#KeyWordslb span
+{
+    border: 1px solid #ccc;
+    cursor:pointer;
+    margin-right:10px;
+    padding:3px;
+}
+#KeyWordslb span:hover
+{
+    box-shadow:0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
+    outline:0 none;
+    font-size: 1.2em;
+}
 </style>
 <div id="body">
     <section class="featured">
@@ -42,16 +78,16 @@ fieldset .title1
             <legend>createNews</legend>
             @Html.LabelFor(news => news.From, new { @class = "title" })  
             @{ if (ViewData["From"] == null)
-                   {   @Html.DropDownList("From", ViewData["FromList"] as SelectList, "请选择"); }
+                   {   @Html.DropDownList("From", ViewData["FromList"] as SelectList, "请选择", new {@class = "short" }); }
                else
                    {
-                       @Html.DropDownList("From", ViewData["FromList"] as SelectList);
+                       @Html.DropDownList("From", ViewData["FromList"] as SelectList, new { @class = "short" });
                    }
             }
             @Html.ValidationMessageFor(news => news.From)
             <br />
             @Html.LabelFor(news => news.Type, new { @class = "title" })  
-            @Html.DropDownList("Type", ViewData["TypeList"] as SelectList, "请选择")
+            @Html.DropDownList("Type", ViewData["TypeList"] as SelectList, "请选择", new { @class = "short" })
             @Html.ValidationMessageFor(news => news.Type)
             <br />
             @Html.LabelFor(news => news.Title, new { @class = "title" })  
@@ -78,12 +114,33 @@ fieldset .title1
             @Html.TextBox("IssueDate", "", new { @readonly = "true" })
             @Html.ValidationMessageFor(news => news.IssueDate)
             <br />
+            @Html.LabelFor(news => news.KeyWord, new { @class = "title" })   
+            @Html.TextBox("KeyWord","", new { @class = "shortKeyword", @id = "txKeyWord" })
+            @Html.ValidationMessageFor(news => news.KeyWord)           
+            <input id="addKeyWord" type="button" value="添加"/>
+            @Html.Label(" ", new { @class = "title1", @id = "KeyWordslb", @name = "KeyWordslb" })
+            @Html.Hidden("KeyWords")
             </fieldset>
             <input type="submit" value="提交" />
         }
     </section>
 </div>
 <script type="text/javascript">
+    var keyNo=0;
+    $("#addKeyWord").click(function () {
+        var keyword = $("#txKeyWord").val();
+        if (keyword.length > 5) {
+            return;
+        }
+        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='aa(" + keyNo + ")'>" + keyword + "</span>");
+        var keywords = $("#KeyWords").val() + keyword;
+        $("#KeyWords").val(keywords);
+        keyNo++;
+        $("#txKeyWord").val("");
+    });
+    function aa(keyNo) {
+        $("#key" + keyNo).remove();
+    };
     $("#IssueDate").datepicker({
         numberOfMonths: 1,
         changeYear: false,

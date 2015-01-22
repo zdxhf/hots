@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "WowNews";
+    ViewBag.Title = "WarsNews";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section scripts
@@ -13,17 +13,17 @@
     <section class="featured">
         <div class="content-wrapper">
              <hgroup class="title">
-                <h1>魔兽世界最新更新<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", new { catelog = "Wow" }, new { target = "_blank" })</span></h1>                    
+                <h1>魔兽争霸最新更新<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", new { catelog = "Wars" }, new { target = "_blank" })</span></h1>                    
             </hgroup>  
                
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
-        @Html.Partial("NavPartial")
+       @Html.Partial("NavPartial")
     </section>
 </div>
 <script type="text/javascript">
-    var acturl = '@Url.Content("~/api/getWowNews")';
+    var acturl = '@Url.Content("~/api/getWarsNews")';
     $(document).ready(function () {
         refresh(acturl);
     });

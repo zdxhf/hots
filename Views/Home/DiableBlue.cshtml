@@ -13,7 +13,7 @@
     <section class="featured">
         <div class="content-wrapper">
              <hgroup class="title">
-                <h1>魔兽世界最新更新<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", new { catelog = "Wow" }, new { target = "_blank" })</span></h1>                    
+                <h1>暗黑破坏神最新更新<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", new { catelog = "Diable" }, new { target = "_blank" })</span></h1>                    
             </hgroup>  
                
         </div>
@@ -23,7 +23,7 @@
     </section>
 </div>
 <script type="text/javascript">
-    var acturl = '@Url.Content("~/api/getWowNews")';
+    var acturl = '@Url.Content("~/api/getDiableNews")';
     $(document).ready(function () {
         refresh(acturl);
     });

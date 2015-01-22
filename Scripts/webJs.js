@@ -32,10 +32,10 @@ function refresh(acturl) {
         }
     });
 }
-
+var pageNewsNum = 5;
 function refreshPre(acturl) {
     update();
-    var no = Number($('#newsNo').html()) - 5;
+    var no = Number($('#newsNo').html()) - pageNewsNum;
     $.ajax({
         url: acturl,
         type: 'get',
@@ -57,7 +57,7 @@ function refreshPre(acturl) {
 
 function refreshNext(acturl) {
     update();
-    var no = Number($('#newsNo').html()) + 5;
+    var no = Number($('#newsNo').html()) + pageNewsNum;
     $.ajax({
         url: acturl,
         type: 'get',
@@ -67,7 +67,7 @@ function refreshNext(acturl) {
             $('#newsNo').html(no);
             $('#navNex').show();
             $('#navPre').show();
-            if (news.length < 5) {
+            if (news.length < pageNewsNum) {
                 $('#navNex').hide();
             }
         },

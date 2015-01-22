@@ -461,32 +461,61 @@ namespace hotsAPI.Controllers
                     conn.Close();
             }
         }
-        
+
+        private int PageNewsNum = 5;//每页的记录数
         [HttpGet]
         public  List<GameNews> getNews(int act)
         {
-            string sql = "SELECT * FROM gamenews order by id desc limit " + act + ",5";
+            string sql = "SELECT * FROM gamenews order by IssueDate desc,id desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getStormNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='风暴英雄'  order by id desc limit " + act + ",5";
+            string sql = "SELECT * FROM gamenews Where `From`='风暴英雄'  order by IssueDate desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getWowNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='魔兽世界'  order by id desc limit " + act + ",5";
+            string sql = "SELECT * FROM gamenews Where `From`='魔兽世界'  order by IssueDate desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getHotsNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='炉石传说'  order by id desc limit " + act + ",5";
+            string sql = "SELECT * FROM gamenews Where `From`='炉石传说'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            List<GameNews> news = News(sql);
+            return news;
+        }
+        [HttpGet]
+        public List<GameNews> getStarNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='星际争霸'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            List<GameNews> news = News(sql);
+            return news;
+        }
+        [HttpGet]
+        public List<GameNews> getWarsNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='魔兽争霸'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            List<GameNews> news = News(sql);
+            return news;
+        }
+        [HttpGet]
+        public List<GameNews> getDiableNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='暗黑破坏神'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            List<GameNews> news = News(sql);
+            return news;
+        }
+        [HttpGet]
+        public List<GameNews> getOthersNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='其他相关'  order by IssueDate desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
