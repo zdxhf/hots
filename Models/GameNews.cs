@@ -35,12 +35,6 @@ namespace hotsAPI.Models
 
         [DisplayName("详细链接二")]
         public string Link2 { get; set; }
-
-
-        [Required]
-        [DataMember(IsRequired = true)]
-        [DisplayName("资讯类型")]
-        public string Type { get; set; }
         
         [Required]
         [DataMember(IsRequired = true)]
@@ -54,7 +48,7 @@ namespace hotsAPI.Models
         public string IssueDate { get; set; }
 
         [DisplayName("标签")]
-        [StringLength(7, ErrorMessage = "标签过长")]
+        [StringLength(5, ErrorMessage = "标签过长")]
         public string KeyWord { get; set; }
 
         [DisplayName("标签")]

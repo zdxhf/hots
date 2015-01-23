@@ -443,7 +443,7 @@ namespace hotsAPI.Controllers
                 {
                     GameNews gu = new GameNews();
                     gu.From = reader["From"].ToString();
-                    gu.Type = reader["Type"].ToString();
+                    //gu.Type = reader["Type"].ToString();
                     gu.Link1 = reader["Link1"].ToString();
                     gu.Link2 = reader["Link2"].ToString();
                     gu.WebSite1 = reader["WebSite1"].ToString();

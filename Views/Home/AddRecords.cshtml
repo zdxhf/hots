@@ -48,13 +48,34 @@ input[type="button"]:hover
     box-shadow:0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
     outline:0 none;
 }
-#KeyWordslb span
-{
-    border: 1px solid #ccc;
-    cursor:pointer;
-    margin-right:10px;
-    padding:3px;
-}
+    #KeyBack {
+        margin-left: 100px;
+        height: 50px;
+        padding: 5px;
+        width:300px;
+    }
+        #KeyBack span {
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            padding: 3px;
+            color: #808080;
+            display: inline-block;
+            font-size: 13px;
+            line-height: 18px;
+            padding: 4px;
+        }
+        #KeyBack span:hover {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
+            outline: 0 none;
+        }
+    #KeyWordslb span {
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 3px;
+    }
 #KeyWordslb span:hover
 {
     box-shadow:0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
@@ -86,10 +107,22 @@ input[type="button"]:hover
             }
             @Html.ValidationMessageFor(news => news.From)
             <br />
-            @Html.LabelFor(news => news.Type, new { @class = "title" })  
+            @*@Html.LabelFor(news => news.Type, new { @class = "title" })  
             @Html.DropDownList("Type", ViewData["TypeList"] as SelectList, "请选择", new { @class = "short" })
-            @Html.ValidationMessageFor(news => news.Type)
+            @Html.ValidationMessageFor(news => news.Type)*@
+                @Html.LabelFor(news => news.KeyWord, new { @class = "title" })
+                @Html.TextBox("KeyWord", "", new { @class = "shortKeyword", @id = "txKeyWord" })
+                @Html.ValidationMessageFor(news => news.KeyWord)
+                <input id="addKeyWord" type="button" value="添加" />
+                @Html.Label(" ", new { @class = "title1", @id = "KeyWordslb", @name = "KeyWordslb" })
+                @Html.Hidden("KeyWords")
             <br />
+                <div id="KeyBack">
+                <span id="keyb1" onclick="aadb(1)">蓝贴发布</span>
+                <span id="keyb2" onclick="aadb(2)">前瞻资讯</span>
+                <span id="keyb3" onclick="aadb(3)">新闻活动</span>
+                <span id="keyb4" onclick="aadb(4)">回顾统计</span>
+                </div>
             @Html.LabelFor(news => news.Title, new { @class = "title" })  
             @Html.TextBox("Title")
             @Html.ValidationMessageFor(news => news.Title)
@@ -114,12 +147,7 @@ input[type="button"]:hover
             @Html.TextBox("IssueDate", "", new { @readonly = "true" })
             @Html.ValidationMessageFor(news => news.IssueDate)
             <br />
-            @Html.LabelFor(news => news.KeyWord, new { @class = "title" })   
-            @Html.TextBox("KeyWord","", new { @class = "shortKeyword", @id = "txKeyWord" })
-            @Html.ValidationMessageFor(news => news.KeyWord)           
-            <input id="addKeyWord" type="button" value="添加"/>
-            @Html.Label(" ", new { @class = "title1", @id = "KeyWordslb", @name = "KeyWordslb" })
-            @Html.Hidden("KeyWords")
+           
             </fieldset>
             <input type="submit" value="提交" />
         }
@@ -130,20 +158,36 @@ input[type="button"]:hover
    
     $("#addKeyWord").click(function () {
         var keyword = $("#txKeyWord").val();
-        if ((keyword.length > 7) || (keyword.length == 0)) {
+        if ((keyword.length > 5) || (keyword.length == 0)) {
             return;
         }
         var keywords=""
-        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='aa(" + keyNo + ")'>" + keyword + "</span>");       
+        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='add(" + keyNo + ")'>" + keyword + "</span>");       
         $("#KeyWordslb span").each(function () { keywords+=','+$(this).text()});
         $("#KeyWords").val(keywords);
         keyNo++;
         $("#txKeyWord").val("");
     });
-    function aa(keyNo) {
-        $("#key" + keyNo).remove();
+    $("#KeyBack span").click(function () {
+        var keyword = $(this).text();
+        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='add(" + keyNo + ")'>" + keyword + "</span>")
+        keyNo++;
         var keywords = "";
         $("#KeyWordslb span").each(function () { keywords += ','+$(this).text()});
+        $("#KeyWords").val(keywords);
+    });
+    //function addb(keybNo) {
+    //    var keyword = $("#keyb"+keybNo).val();
+    //    $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='add(" + keyNo + ")'>" + keyword + "</span>")
+    //    keyNo++;
+    //    var keywords = "";
+    //    $("#KeyWordslb span").each(function () { keywords += ','+$(this).text()});
+    //    $("#KeyWords").val(keywords);
+    //};
+    function add(keyNo) {
+        $("#key" + keyNo).remove();
+        var keywords = "";
+        $("#KeyWordslb span").each(function () { keywords += ',' + $(this).text() });
         $("#KeyWords").val(keywords);
     };
     $("#IssueDate").datepicker({
