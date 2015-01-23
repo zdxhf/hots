@@ -31,7 +31,7 @@ fieldset .short
 }
 fieldset .shortKeyword
 {
-    width:70px;
+    width:90px;
 }
 fieldset #addKeyWord
 {
@@ -126,26 +126,32 @@ input[type="button"]:hover
     </section>
 </div>
 <script type="text/javascript">
-    var keyNo=0;
+    var keyNo = 0;
+   
     $("#addKeyWord").click(function () {
         var keyword = $("#txKeyWord").val();
-        if (keyword.length > 5) {
+        if ((keyword.length > 7) || (keyword.length == 0)) {
             return;
         }
-        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='aa(" + keyNo + ")'>" + keyword + "</span>");
-        var keywords = $("#KeyWords").val() + keyword;
+        var keywords=""
+        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='aa(" + keyNo + ")'>" + keyword + "</span>");       
+        $("#KeyWordslb span").each(function () { keywords+=','+$(this).text()});
         $("#KeyWords").val(keywords);
         keyNo++;
         $("#txKeyWord").val("");
     });
     function aa(keyNo) {
         $("#key" + keyNo).remove();
+        var keywords = "";
+        $("#KeyWordslb span").each(function () { keywords += ','+$(this).text()});
+        $("#KeyWords").val(keywords);
     };
     $("#IssueDate").datepicker({
         numberOfMonths: 1,
         changeYear: false,
         "yearRange": '2000:2020',
         showMonthAfterYear: true,
-        dateFormat: 'yy-mm-dd'
+        dateFormat: 'yy-mm-dd',
+        maxDate:'+0d'
     });
 </script>

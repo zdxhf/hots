@@ -450,6 +450,7 @@ namespace hotsAPI.Controllers
                     gu.WebSite2 = reader["WebSite2"].ToString();
                     gu.IssueDate = DateTime.Parse(reader["IssueDate"].ToString()).ToShortDateString();
                     gu.Title = reader["Title"].ToString();
+                    gu.KeyWords =reader["KeyWord"].ToString();
                     news.Add(gu);
                 }
                 reader.Close();

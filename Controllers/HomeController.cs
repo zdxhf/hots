@@ -122,11 +122,19 @@ namespace hotsAPI.Controllers
         public ActionResult AddRecords(GameNews gn)
         {
             gn.Date = DateTime.Now.ToString();
+            if (gn.KeyWords != null)
+            {
+                string keywords = gn.KeyWords;
+                if ((keywords.StartsWith(",")))
+                {
+                    gn.KeyWords = keywords.Substring(1);
+                }
+            }
             MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             try
             {
                 ArrayList paraList1 = new ArrayList();
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO gamenews (`Type`,`Title`,`FROM`,`Link1`,`Date`,`WebSite1`,`Link2`,`WebSite2`,`IssueDate`) VALUES(@Type,@Title,@From,@Link1,@Date,@WebSite1,@Link2,@WebSite2,@IssueDate)", conn);
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO gamenews (`Type`,`Title`,`FROM`,`Link1`,`Date`,`WebSite1`,`Link2`,`WebSite2`,`IssueDate`,`KeyWord`) VALUES(@Type,@Title,@From,@Link1,@Date,@WebSite1,@Link2,@WebSite2,@IssueDate,@KeyWord)", conn);
                 conn.Open();
                 MySqlParameter p1 = new MySqlParameter("@Type", gn.Type);
                 MySqlParameter p2 = new MySqlParameter("@Title", gn.Title);
@@ -137,6 +145,7 @@ namespace hotsAPI.Controllers
                 MySqlParameter p7 = new MySqlParameter("@Link2", gn.Link2);
                 MySqlParameter p8 = new MySqlParameter("@WebSite2", gn.WebSite2);
                 MySqlParameter p9 = new MySqlParameter("@IssueDate", gn.IssueDate);
+                MySqlParameter p10 = new MySqlParameter("@KeyWord", gn.KeyWords);
                 paraList1.Add(p1);
                 paraList1.Add(p2);
                 paraList1.Add(p3);
@@ -146,6 +155,7 @@ namespace hotsAPI.Controllers
                 paraList1.Add(p7);
                 paraList1.Add(p8);
                 paraList1.Add(p9);
+                paraList1.Add(p10);
                 for (int j = 0; j < paraList1.Count; j++)
                 {
                     cmd.Parameters.Add((object)paraList1[j]);

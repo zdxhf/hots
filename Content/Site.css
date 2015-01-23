@@ -797,7 +797,10 @@ table td
     border-bottom:1px solid #aaa;
     padding:10px;
 }
-
+table td .key
+{
+    color:rgb(122,192,218);
+}
 #news {
     position: relative;
 }

@@ -54,7 +54,7 @@ namespace hotsAPI.Models
         public string IssueDate { get; set; }
 
         [DisplayName("标签")]
-        [StringLength(5, ErrorMessage = "标签过长")]
+        [StringLength(7, ErrorMessage = "标签过长")]
         public string KeyWord { get; set; }
 
         [DisplayName("标签")]
