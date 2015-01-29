@@ -474,52 +474,94 @@ namespace hotsAPI.Controllers
         [HttpGet]
         public List<GameNews> getStormNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='风暴英雄'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            string sql = "SELECT * FROM gamenews Where `From`='风暴英雄'  order by IssueDate desc,id desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getWowNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='魔兽世界'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            string sql = "SELECT * FROM gamenews Where `From`='魔兽世界'  order by  IssueDate desc,id desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getHotsNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='炉石传说'  order by IssueDate desc limit " + act + "," + PageNewsNum;
-            List<GameNews> news = News(sql);
-            return news;
+            string sql = "SELECT * FROM gamenews Where `From`='炉石传说'  order by  IssueDate desc,id desc limit " + act + "," + PageNewsNum;
+                List<GameNews> news = News(sql);
+                return news;
         }
         [HttpGet]
-        public List<GameNews> getStarNews(int act)
+        public List<GameNews> getNewsFromKey(int act,string from, string keyword)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='星际争霸'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            string sql = "SELECT * FROM gamenews Where `From`='" + from + "' and KeyWord Like N'%." + keyword + ".%' order by  IssueDate desc,id desc limit " + act + "," + PageNewsNum;
+                List<GameNews> news = News(sql);
+                return news;
+        }
+        [HttpGet]
+        public List<GameNews> getStarsNews(int act)
+        {
+            string sql = "SELECT * FROM gamenews Where `From`='星际争霸'  order by  IssueDate desc,id desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getWarsNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='魔兽争霸'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            string sql = "SELECT * FROM gamenews Where `From`='魔兽争霸'  order by  IssueDate desc,id desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getDiableNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='暗黑破坏神'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            string sql = "SELECT * FROM gamenews Where `From`='暗黑破坏神'  order by  IssueDate desc,id desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
         [HttpGet]
         public List<GameNews> getOthersNews(int act)
         {
-            string sql = "SELECT * FROM gamenews Where `From`='其他相关'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+            string sql = "SELECT * FROM gamenews Where `From`='其他相关'  order by  IssueDate desc,id desc limit " + act + "," + PageNewsNum;
             List<GameNews> news = News(sql);
             return news;
         }
+        [HttpGet]
+        public List<GameKey> getKeyWords(string from)
+        {
+            string sql = "SELECT * FROM keywords Where `From`='"+from+"'";
+            List<GameKey> keyWords = new List<GameKey>();
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                conn.Open();
+                MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                while (reader.Read())
+                {
+                    GameKey keyWord = new GameKey();
+                    keyWord.KeyName = reader["KeyName"].ToString();
+                    keyWord.RecordTimes = Int16.Parse(reader["RecordTimes"].ToString());
+                    keyWords.Add(keyWord);
+                }
+                reader.Close();
+                return keyWords;
+            }
+            finally
+            {
+                if (conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+
+        //[HttpGet]
+        //public List<GameNews> Search(string from,string Key,int act)
+        //{
+        //    string sql = "SELECT * FROM gamenews Where `From`='"+from+"' and Key='"+Key+"'  order by IssueDate desc limit " + act + "," + PageNewsNum;
+        //    List<GameNews> news = News(sql);
+        //    return news;
+        //}
         //[HttpGet]
         //public GameNews getLastNews()
         //{

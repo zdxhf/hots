@@ -34,7 +34,7 @@ namespace hotsAPI.Controllers
         {
             return View();
         }
-        public ActionResult StarBlue()
+        public ActionResult StarsBlue()
         {
             return View();
         }
@@ -107,14 +107,13 @@ namespace hotsAPI.Controllers
                     break;
             }
             ViewData["FromList"] = new SelectList(fromList, "Value", "Text", "");
-            List<SelectListItem> typeList = new List<SelectListItem>();
-            typeList.Add(new SelectListItem { Text = "蓝贴发布", Value = "蓝贴发布" });
-            typeList.Add(new SelectListItem { Text = "前瞻/资讯", Value = "前瞻/资讯" });
-            typeList.Add(new SelectListItem { Text = "新闻/活动", Value = "新闻/活动" });
-            typeList.Add(new SelectListItem { Text = "回顾/统计", Value = "回顾/统计" });
-            typeList.Add(new SelectListItem { Text = "其他相关", Value = "其他相关" });
-            ViewData["TypeList"] = new SelectList(typeList, "Value", "Text", "");
-
+            //List<SelectListItem> typeList = new List<SelectListItem>();
+            //typeList.Add(new SelectListItem { Text = "蓝贴发布", Value = "蓝贴发布" });
+            //typeList.Add(new SelectListItem { Text = "前瞻/资讯", Value = "前瞻/资讯" });
+            //typeList.Add(new SelectListItem { Text = "新闻/活动", Value = "新闻/活动" });
+            //typeList.Add(new SelectListItem { Text = "回顾/统计", Value = "回顾/统计" });
+            //typeList.Add(new SelectListItem { Text = "其他相关", Value = "其他相关" });
+            //ViewData["TypeList"] = new SelectList(typeList, "Value", "Text", "");
             return View();
         }
 
@@ -122,52 +121,130 @@ namespace hotsAPI.Controllers
         public ActionResult AddRecords(GameNews gn)
         {
             gn.Date = DateTime.Now.ToString();
-            if (gn.KeyWords != null)
-            {
-                string keywords = gn.KeyWords;
-                if ((keywords.StartsWith(",")))
-                {
-                    gn.KeyWords = keywords.Substring(1);
-                }
-            }
-            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);           
+            conn.Open();
+            MySqlTransaction trans = conn.BeginTransaction();
             try
             {
-                ArrayList paraList1 = new ArrayList();
-                MySqlCommand cmd = new MySqlCommand("INSERT INTO gamenews (`Title`,`FROM`,`Link1`,`Date`,`WebSite1`,`Link2`,`WebSite2`,`IssueDate`,`KeyWord`) VALUES(@Title,@From,@Link1,@Date,@WebSite1,@Link2,@WebSite2,@IssueDate,@KeyWord)", conn);
-                conn.Open();
-                //MySqlParameter p1 = new MySqlParameter("@Type", gn.Type);
-                MySqlParameter p2 = new MySqlParameter("@Title", gn.Title);
-                MySqlParameter p3 = new MySqlParameter("@From", gn.From);
-                MySqlParameter p4 = new MySqlParameter("@Link1", gn.Link1);
-                MySqlParameter p5 = new MySqlParameter("@Date", gn.Date);
-                MySqlParameter p6 = new MySqlParameter("@WebSite1", gn.WebSite1);
-                MySqlParameter p7 = new MySqlParameter("@Link2", gn.Link2);
-                MySqlParameter p8 = new MySqlParameter("@WebSite2", gn.WebSite2);
-                MySqlParameter p9 = new MySqlParameter("@IssueDate", gn.IssueDate);
-                MySqlParameter p10 = new MySqlParameter("@KeyWord", gn.KeyWords);
-                //paraList1.Add(p1);
-                paraList1.Add(p2);
-                paraList1.Add(p3);
-                paraList1.Add(p4);
-                paraList1.Add(p5);
-                paraList1.Add(p6);
-                paraList1.Add(p7);
-                paraList1.Add(p8);
-                paraList1.Add(p9);
-                paraList1.Add(p10);
-                for (int j = 0; j < paraList1.Count; j++)
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+                cmd.Transaction = trans;
+                if (gn.KeyWords != null)
                 {
-                    cmd.Parameters.Add((object)paraList1[j]);
+                    //string keywords = gn.KeyWords;
+                    string[] keys = gn.KeyWords.Split('.');
+                    foreach (string key in keys)
+                    {
+                        if (key != "")
+                        {
+                            cmd.CommandText = "SELECT * FROM KeyWords where `From`='" + gn.From + "' and KeyName='" + key + "'";
+                           // cmd = new MySqlCommand("SELECT * FROM KeyWords where `From`='"+gn.From+"' and KeyName='" +key+"'", conn);                       
+                            MySqlDataReader reader = cmd.ExecuteReader(CommandBehavior.SingleResult | CommandBehavior.SingleRow);
+                            if (!reader.Read())
+                            {
+                                reader.Close();
+                                ArrayList paraList1 = new ArrayList();
+                                cmd.CommandText = "INSERT INTO KeyWords (`FROM`,`KeyName`,`RecordTimes`,`Date`) VALUES(@FROM,@KeyName,@RecordTimes,@Date)";
+                                MySqlParameter p1 = new MySqlParameter("@FROM", gn.From);
+                                MySqlParameter p2 = new MySqlParameter("@KeyName", key);
+                                MySqlParameter p3 = new MySqlParameter("@RecordTimes", 1);
+                                MySqlParameter p4 = new MySqlParameter("@Date", DateTime.Now.ToShortDateString());
+                                paraList1.Add(p1);
+                                paraList1.Add(p2);
+                                paraList1.Add(p3);
+                                paraList1.Add(p4);
+                                for (int j = 0; j < paraList1.Count; j++)
+                                {
+                                    cmd.Parameters.Add((object)paraList1[j]);
+                                }
+                                cmd.ExecuteNonQuery();
+                            }
+                            else
+                            {                           
+                                int id = Int16.Parse(reader["Id"].ToString());
+                                int times =Int16.Parse(reader["RecordTimes"].ToString());
+                                reader.Close();
+                                times++;
+                                cmd.CommandText = "update KeyWords set RecordTimes=" + times + " where id=" + id;
+                                cmd.ExecuteNonQuery();
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+                 
+                ArrayList paraList2 = new ArrayList();
+                cmd.CommandText="INSERT INTO gamenews (`Title`,`FROM`,`Link1`,`Date`,`WebSite1`,`Link2`,`WebSite2`,`IssueDate`,`KeyWord`) VALUES(@Title,@From1,@Link1,@Date1,@WebSite1,@Link2,@WebSite2,@IssueDate,@KeyWord)";
+                MySqlParameter p12 = new MySqlParameter("@Title", gn.Title);
+                MySqlParameter p13 = new MySqlParameter("@From1", gn.From);
+                MySqlParameter p14 = new MySqlParameter("@Link1", gn.Link1);
+                MySqlParameter p15 = new MySqlParameter("@Date1", gn.Date);
+                MySqlParameter p16 = new MySqlParameter("@WebSite1", gn.WebSite1);
+                MySqlParameter p17 = new MySqlParameter("@Link2", gn.Link2);
+                MySqlParameter p18 = new MySqlParameter("@WebSite2", gn.WebSite2);
+                MySqlParameter p19 = new MySqlParameter("@IssueDate", gn.IssueDate);
+                MySqlParameter p10 = new MySqlParameter("@KeyWord", gn.KeyWords);
+                paraList2.Add(p12);
+                paraList2.Add(p13);
+                paraList2.Add(p14);
+                paraList2.Add(p15);
+                paraList2.Add(p16);
+                paraList2.Add(p17);
+                paraList2.Add(p18);
+                paraList2.Add(p19);
+                paraList2.Add(p10);
+                for (int j = 0; j < paraList2.Count; j++)
+                {
+                    cmd.Parameters.Add((object)paraList2[j]);
                 }
                 cmd.ExecuteNonQuery();
-                return RedirectToAction("BlzBlue");
+                trans.Commit();
+                string act = "";
+                switch (gn.From)
+                {
+                    case "风暴英雄":
+                        act = "Storm";
+                        break;
+                    case "魔兽世界":
+                        act = "Wow";
+                        break;
+                    case "炉石传说":
+                        act = "Hots";
+                        break;
+                    case "星际争霸":
+                        act = "Stars";
+                        break;
+                    case "魔兽争霸":
+                        act = "Wars";
+                        break;
+                    case "暗黑破坏神":
+                        act = "Diable";
+                        break;
+                    case "其他相关":
+                        act = "Others";
+                        break;
+                    default:
+                        break;
+                }
+
+                return RedirectToAction(act+"Blue");
+            }
+            catch(Exception)
+            {
+                trans.Rollback();
+                return View();
             }
             finally
             {
                 if (conn.State != ConnectionState.Closed)
                     conn.Close();
             }
+        }
+        [HttpGet]
+        public ActionResult Search(string Key)
+        {
+            string key = Key;
+            return View();
         }
         //[HttpPost]
         //public ActionResult Index(hotsAPI.Models.Hero hreo)

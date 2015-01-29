@@ -20,17 +20,40 @@
     </section>
     <section class="content-wrapper main-content clear-fix">
         @Html.Partial("NavPartial")
+        @Html.Hidden("KeyWord")
     </section>
 </div>
 <script type="text/javascript">
     var acturl = '@Url.Content("~/api/getStormNews")';
+    var keyurl = '@Url.Content("~/api/getKeyWords?from=风暴英雄")';
+    var newfromkeyurl = '@Url.Content("~/api/getNewsFromKey")';
     $(document).ready(function () {
+        getKeyWords(keyurl);
         refresh(acturl);
     });
+    function keywords(key) {
+        refreshFromKey(newfromkeyurl, "风暴英雄", key);
+        var html = "<a href='#'onclick=\"keywords('" + key + "')\">" + key + "</a>";
+        $('#pageNav').html('@Html.ActionLink("首页","BlzBlue")→@Html.ActionLink("风暴英雄","StormBlue")→' + html);
+        $("#KeyWord").val(key);
+    };
     $('#navPre').click(function () {
-        refreshPre(acturl);
+        var keyword = $("#KeyWord").val();
+        if (keyword == "") {
+            refreshPre(acturl);
+        }
+        else {
+            refreshFromKeyPre(newfromkeyurl, "风暴英雄", keyword);
+        }
     });
     $('#navNex').click(function () {
-        refreshNext(acturl);
+        var keyword = $("#KeyWord").val();
+        if (keyword == "") {
+            refreshNext(acturl);
+        }
+        else {
+            refreshFromKeyNext(newfromkeyurl, "风暴英雄", keyword);
+        }
     });
+    $('#pageNav').html('@Html.ActionLink("首页","BlzBlue")→@Html.ActionLink("风暴英雄","StormBlue")');
     </script>

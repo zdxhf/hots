@@ -800,7 +800,7 @@ table td
 table td a
 {
     color: #3e5667!important;
-    font-size: 10px;
+    font-size: 12px;
 }
 #news {
     position: relative;
@@ -818,5 +818,36 @@ table td a
         display: inline-block;
         width: 30px;
         height: 30px;
-        background: url("/Content/loading.gif") no-repeat;
+        background: url("./loading.gif") no-repeat;
     }
+    
+
+#KeyNav {
+        margin-left: 80px;
+        padding: 5px;
+        width:100%;
+    }
+        #KeyNav span {
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            padding: 3px;
+            color: #808080;
+            display: inline-block;
+            font-size: 13px;
+            line-height: 18px;
+            padding: 4px;
+        }
+        #KeyNav span:hover {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
+            outline: 0 none;
+        }
+        
+       #KeyNav span  a,#KeyNav span  a:hover {
+            color: #808080;
+            outline: medium none;
+            padding-left: 3px;
+            padding-right: 3px;
+            text-decoration:none;
+            background-color:inherit;
+        }

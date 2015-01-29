@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "HotsNews";
+    ViewBag.Title = "StarNews";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section scripts
@@ -13,28 +13,27 @@
     <section class="featured">
         <div class="content-wrapper">
              <hgroup class="title">
-                <h1>炉石传说最新更新<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", new { catelog = "Hots" }, new { target = "_blank" })</span></h1>                    
+                <h1>星际争霸最新更新<span class="float-right">@Html.ActionLink("添加记录", "AddRecords", new { catelog = "Star" }, new { target = "_blank" })</span></h1>                    
             </hgroup>  
                
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
         @Html.Partial("NavPartial")
-        @Html.Hidden("KeyWord")
     </section>
 </div>
 <script type="text/javascript">
-    var acturl = '@Url.Content("~/api/getHotsNews")';
-    var keyurl = '@Url.Content("~/api/getKeyWords?from=炉石传说")';
+    var acturl = '@Url.Content("~/api/getStarsNews")';
+    var keyurl = '@Url.Content("~/api/getKeyWords?from=星际争霸")';
     var newfromkeyurl = '@Url.Content("~/api/getNewsFromKey")';
     $(document).ready(function () {
         getKeyWords(keyurl);
         refresh(acturl);
     });
     function keywords(key) {
-        refreshFromKey(newfromkeyurl, "炉石传说", key);
+        refreshFromKey(newfromkeyurl, "星际争霸", key);
         var html = "<a href='#'onclick=\"keywords('" + key + "')\">" + key + "</a>";
-        $('#pageNav').html('@Html.ActionLink("首页","BlzBlue")→@Html.ActionLink("炉石传说","HotsBlue")→' + html);
+        $('#pageNav').html('@Html.ActionLink("首页","BlzBlue")→@Html.ActionLink("星际争霸","StarsBlue")→' + html);
         $("#KeyWord").val(key);
     };
     $('#navPre').click(function () {
@@ -43,7 +42,7 @@
             refreshPre(acturl);
         }
         else {
-            refreshFromKeyPre(newfromkeyurl, "炉石传说", keyword);
+            refreshFromKeyPre(newfromkeyurl, "星际争霸", keyword);
         }
     });
     $('#navNex').click(function () {
@@ -52,8 +51,8 @@
             refreshNext(acturl);
         }
         else {
-            refreshFromKeyNext(newfromkeyurl, "炉石传说", keyword);
+            refreshFromKeyNext(newfromkeyurl, "星际争霸", keyword);
         }
     });
-        $('#pageNav').html('@Html.ActionLink("首页","BlzBlue")→@Html.ActionLink("炉石传说","HotsBlue")');
+    $('#pageNav').html('@Html.ActionLink("首页","BlzBlue")→@Html.ActionLink("星际争霸","StarsBlue")');
     </script>
