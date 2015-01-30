@@ -3,17 +3,18 @@
     for (var i = 0; i < news.length; i++) {
         var msg = news[i];
         var keys = msg.KeyWords.split('.');
-        var keyHtml = "";
+        var keyHtml = "<span style='margin-right:8px;color:rgb(40,40,255);'>";
         for(var j=0;j<keys.length;j++) {
             if (keys[j] != "") {
-                keyHtml += "<span style='margin-right:8px'>" + keys[j] + "</span>";
+                keyHtml += "[" + keys[j] + "]";
             }
         }
+        keyHtml += "</span>";
         if (i % 2 == 0) {
-            $('.tableContent').append("<tr style='background-color:#F8F8F8'><td>" + msg.From + "</td><td>" + keyHtml + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
+            $('.tableContent').append("<tr style='background-color:#F8F8F8'><td>" + msg.From + "</td><td>" + keyHtml  + msg.Title + "</td><td><a target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
         }
         else {
-            $('.tableContent').append("<tr><td>" + msg.From + "</td><td>" + keyHtml + "</td><td>" + msg.Title + "</td><td><a target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
+            $('.tableContent').append("<tr><td>" + msg.From + "</td><td>" + keyHtml + msg.Title + "</td><td><a target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
         }
     }
 }

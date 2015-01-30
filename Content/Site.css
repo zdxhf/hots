@@ -823,9 +823,12 @@ table td a
     
 
 #KeyNav {
-        margin-left: 80px;
+        margin-left: 50px;
         padding: 5px;
+        padding-left: 35px;
         width:100%;
+        background-color:#efeeef;
+        background: url("./tag.png") no-repeat;
     }
         #KeyNav span {
             border-radius: 3px;
@@ -837,6 +840,7 @@ table td a
             font-size: 13px;
             line-height: 18px;
             padding: 4px;
+
         }
         #KeyNav span:hover {
             box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
