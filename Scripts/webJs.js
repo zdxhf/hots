@@ -3,22 +3,47 @@
     for (var i = 0; i < news.length; i++) {
         var msg = news[i];
         var keys = msg.KeyWords.split('.');
-        var keyHtml = "<span style='margin-right:8px;color:rgb(40,40,255);'>";
+        var keyHtml = "<span style='margin-right:8px;color:rgb(123,183,218);'>";
         for(var j=0;j<keys.length;j++) {
             if (keys[j] != "") {
                 keyHtml += "[" + keys[j] + "]";
             }
         }
+        var title = "<span class='title'><a onmouseover='showLink(this,event)' onmouseout='hideLink(this)' href='" + msg.Link1 + "'  target='blank'>" + msg.Title + "</a>";
+        title += "<span class='titleDemo'>" + msg.Link1 + "</span></span>";
+
         keyHtml += "</span>";
         if (i % 2 == 0) {
-            $('.tableContent').append("<tr style='background-color:#F8F8F8'><td>" + msg.From + "</td><td>" + keyHtml  + msg.Title + "</td><td><a target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
+            $('.tableContent').append("<tr style='background-color:rgba(248,248,248,0.5)'><td>" + msg.From + "</td><td>" + keyHtml + title + "</td><td><a class='link' target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
         }
         else {
-            $('.tableContent').append("<tr><td>" + msg.From + "</td><td>" + keyHtml + msg.Title + "</td><td><a target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
+            $('.tableContent').append("<tr style='background-color:rgba(238,238,238,0.5)'><td>" + msg.From + "</td><td>" + keyHtml + title + "</td><td><a  class='link' target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
         }
     }
 }
+var showtitle = 0;
+function showLink(obj, event) {
+    var demo = $(obj).next();   
+    if (showtitle == 0) {
+        timer=setTimeout(function () {
+            demo.show();
+            demo.css("left", event.pageX);
+            demo.css("top", $(obj).offset().top + 40);
+            showtitle = 1;
+        }, 1500);
+       
+    }
+};
+function hideLink(obj) {
+    var demo = $(obj).next();
+    demo.hide();
+    showtitle = 0;
+    clearTimeout(timer);
+    //alert(a+event.pageX);
+};
+function show() {
 
+}
 function update() {
     $('#news').append('<div id="loading"><div id="iron"></div>');
 };
@@ -104,7 +129,7 @@ function refreshFromKey(url,from, key) {
         }
     });
 }
-var pageNewsNum = 5;
+var pageNewsNum = 10;
 function refreshPre(acturl) {
     update();
     var no = Number($('#newsNo').html()) - pageNewsNum;

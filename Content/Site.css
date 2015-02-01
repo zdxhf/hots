@@ -27,9 +27,9 @@ a {
         color: #333;
     }
 
-    a:hover {
+    /*a:hover {
         background-color: #c7d1d6;
-    }
+    }*/
 
 header, footer, hgroup,
 nav, section {
@@ -799,11 +799,53 @@ table td
 }
 table td a
 {
-    color: #3e5667!important;
+    color: #3e5667;
     font-size: 12px;
+    text-decoration:none;
+    /*border:solid 1px red;
+    padding-left:6px;*/
 }
+table td .titleDemo
+{
+    color: #3e5667;
+    font-size: 12px;
+    border:solid 1px rgba(150,150,150,0.9);
+    box-shadow: 1px 1px 3px rgba(150,150,150,0.9);
+    padding-left:6px;
+    padding-right:6px;
+    position:fixed;
+    display:none;
+    background-color:white;
+    z-index:2;
+}
+ table td .title a
+{
+    font-size: 13px;
+    color:rgb(40,40,40);
+    padding-left:6px;
+    position:relative;
+}
+
+ table td .title a:hover
+{
+    text-decoration:underline;
+}
+
+ table td a.link{
+    border:solid 1px rgba(150,150,150,0.9);
+    color:rgb(130,130,130);
+    padding-left:6px;
+ }
+   
+    table td a.link:hover{   
+     box-shadow: 1px 1px 3px rgba(150,150,150,0.9);
+     color:rgb(90,90,90);
+     outline: 0 none;
+ }
+
 #news {
     position: relative;
+    background: url("./LOGO4.png") 50px 30px no-repeat;
 }
 #loading {
     position: absolute;
@@ -843,7 +885,7 @@ table td a
 
         }
         #KeyNav span:hover {
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset,0 0 8px rgba(82,168,236,0.6);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset,1px 1px 3px rgba(168,168,168,0.6);
             outline: 0 none;
         }
         

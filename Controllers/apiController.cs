@@ -463,7 +463,7 @@ namespace hotsAPI.Controllers
             }
         }
 
-        private int PageNewsNum = 5;//每页的记录数
+        private int PageNewsNum = 10;//每页的记录数
         [HttpGet]
         public  List<GameNews> getNews(int act)
         {
