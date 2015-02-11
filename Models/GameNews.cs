@@ -20,13 +20,13 @@ namespace hotsAPI.Models
 
         [Required]
         [DataMember(IsRequired = true)]
-        [DisplayName("引用网站名一")]
+        [DisplayName("引用网站名")]
         [StringLength(10,ErrorMessage="网站名字过长")]
         public string WebSite1 { get; set; }
 
         [Required]
         [DataMember(IsRequired = true)]
-        [DisplayName("详细链接一")]
+        [DisplayName("详细链接")]
         public string Link1 { get; set; }
 
         [StringLength(10, ErrorMessage = "网站名字过长")]
@@ -35,7 +35,15 @@ namespace hotsAPI.Models
 
         [DisplayName("详细链接二")]
         public string Link2 { get; set; }
-        
+
+        [StringLength(10, ErrorMessage = "网站名字过长")]
+        [DisplayName("引用网站名三")]
+        public string WebSite3 { get; set; }
+
+        [DisplayName("详细链接三")]
+        public string Link3 { get; set; }
+
+
         [Required]
         [DataMember(IsRequired = true)]
         [DisplayName("主题内容")]
@@ -52,6 +60,8 @@ namespace hotsAPI.Models
         public string KeyWord { get; set; }
 
         [DisplayName("标签")]
+        [Required]
+        [DataMember(IsRequired = true)]
         public string KeyWords { get; set; }
     }
 }

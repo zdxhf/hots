@@ -1,5 +1,6 @@
 ﻿function showTable(news) {
-    $('.tableContent').html("");
+    $('.Newstable').html("");
+    $('.Newstable').append('<thead style="background-color:rgba(248,248,248,0.7)"><tr><td style="width:10%">分类</td><td style="width:75%">主题</td><td style="width:10%">咨讯发布</td></tr></thead><tbody class="tableContent"></tbody>');
     for (var i = 0; i < news.length; i++) {
         var msg = news[i];
         var keys = msg.KeyWords.split('.');
@@ -9,15 +10,20 @@
                 keyHtml += "[" + keys[j] + "]";
             }
         }
-        var title = "<span class='title'><a onmouseover='showLink(this,event)' onmouseout='hideLink(this)' href='" + msg.Link1 + "'  target='blank'>" + msg.Title + "</a>";
-        title += "<span class='titleDemo'>" + msg.Link1 + "</span></span>";
-
+        var title = "<span class='title'>"+ msg.Title + "</span>";
+        var link = "<a class='link' onmouseover='showLink(this,event)' onmouseout='hideLink(this)' target='blank' href='" + msg.Link1 + "'> | " + msg.WebSite1 + "</a>" + "<span class='titleDemo'>" + msg.Link1 + "</span>";
+        if ((msg.Link2 != null) && (msg.Link2!="")) {
+            link += "<a class='link' onmouseover='showLink(this,event)' onmouseout='hideLink(this)' target='blank' href='" + msg.Link2 + "'> | " + msg.WebSite2 + "</a>" + "<span class='titleDemo'>" + msg.Link2 + "</span>";
+        }
+        if ((msg.Link3 != null) && (msg.Link3 != "")) {
+            link += "<a class='link' onmouseover='showLink(this,event)' onmouseout='hideLink(this)' target='blank' href='" + msg.Link3 + "'> | " + msg.WebSite3 + "</a>" + "<span class='titleDemo'>" + msg.Link3 + "</span>";
+        }
         keyHtml += "</span>";
         if (i % 2 == 0) {
-            $('.tableContent').append("<tr style='background-color:rgba(248,248,248,0.5)'><td>" + msg.From + "</td><td>" + keyHtml + title + "</td><td><a class='link' target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
+            $('.tableContent').append("<tr style='background-color:rgba(248,248,248,0.7)'><td>" + msg.From + "</td><td>" + keyHtml + title + link + "<td>" + msg.IssueDate + "</td></tr>");
         }
         else {
-            $('.tableContent').append("<tr style='background-color:rgba(238,238,238,0.5)'><td>" + msg.From + "</td><td>" + keyHtml + title + "</td><td><a  class='link' target='blank' href='" + msg.Link1 + "'>" + msg.WebSite1 + "</a> <a target='blank' href='" + msg.Link2 + "'>" + msg.WebSite2 + "</a></td><td>" + msg.IssueDate + "</td><tr>");
+            $('.tableContent').append("<tr style='background-color:rgba(238,238,238,0.7)'><td>" + msg.From + "</td><td>" + keyHtml + title + link + "<td>" + msg.IssueDate + "</td></tr>");
         }
     }
 }
@@ -28,9 +34,9 @@ function showLink(obj, event) {
         timer=setTimeout(function () {
             demo.show();
             demo.css("left", event.pageX);
-            demo.css("top", $(obj).offset().top + 40);
+            demo.css("top", $(obj).offset().top - $(window).scrollTop() + 40);
             showtitle = 1;
-        }, 1500);
+        }, 1000);
        
     }
 };

@@ -174,7 +174,7 @@ namespace hotsAPI.Controllers
                 }
                  
                 ArrayList paraList2 = new ArrayList();
-                cmd.CommandText="INSERT INTO gamenews (`Title`,`FROM`,`Link1`,`Date`,`WebSite1`,`Link2`,`WebSite2`,`IssueDate`,`KeyWord`) VALUES(@Title,@From1,@Link1,@Date1,@WebSite1,@Link2,@WebSite2,@IssueDate,@KeyWord)";
+                cmd.CommandText = "INSERT INTO gamenews (`Title`,`FROM`,`Link1`,`Date`,`WebSite1`,`Link2`,`WebSite2`,`Link3`,`WebSite3`,`IssueDate`,`KeyWord`) VALUES(@Title,@From1,@Link1,@Date1,@WebSite1,@Link2,@WebSite2,@Link3,@WebSite3,@IssueDate,@KeyWord)";
                 MySqlParameter p12 = new MySqlParameter("@Title", gn.Title);
                 MySqlParameter p13 = new MySqlParameter("@From1", gn.From);
                 MySqlParameter p14 = new MySqlParameter("@Link1", gn.Link1);
@@ -182,6 +182,8 @@ namespace hotsAPI.Controllers
                 MySqlParameter p16 = new MySqlParameter("@WebSite1", gn.WebSite1);
                 MySqlParameter p17 = new MySqlParameter("@Link2", gn.Link2);
                 MySqlParameter p18 = new MySqlParameter("@WebSite2", gn.WebSite2);
+                MySqlParameter p21 = new MySqlParameter("@Link3", gn.Link3);
+                MySqlParameter p22 = new MySqlParameter("@WebSite3", gn.WebSite3);
                 MySqlParameter p19 = new MySqlParameter("@IssueDate", gn.IssueDate);
                 MySqlParameter p10 = new MySqlParameter("@KeyWord", gn.KeyWords);
                 paraList2.Add(p12);
@@ -193,6 +195,8 @@ namespace hotsAPI.Controllers
                 paraList2.Add(p18);
                 paraList2.Add(p19);
                 paraList2.Add(p10);
+                paraList2.Add(p21);
+                paraList2.Add(p22);
                 for (int j = 0; j < paraList2.Count; j++)
                 {
                     cmd.Parameters.Add((object)paraList2[j]);

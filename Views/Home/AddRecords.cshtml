@@ -98,7 +98,7 @@ input[type="button"]:hover
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("AddRecords", "Home",FormMethod.Post, new { @id = "Form" }))
         {
             <fieldset>
             <legend>createNews</legend>
@@ -119,6 +119,7 @@ input[type="button"]:hover
                 <input id="addKeyWord" type="button" value="添加" />
                 @Html.Label(" ", new { @class = "title1", @id = "KeyWordslb", @name = "KeyWordslb" })
                 @Html.Hidden("KeyWords")
+                @Html.ValidationMessageFor(news => news.KeyWords)
             <br />
                 <div id="KeyBack">
                 </div>
@@ -142,6 +143,14 @@ input[type="button"]:hover
             @Html.TextBox("Link2")
             @Html.Label("相关网站链接，非必填", new { @class = "title1" })
             <br />
+            @Html.LabelFor(news => news.WebSite3, new { @class = "title" })  
+            @Html.TextBox("WebSite3")
+            @Html.Label("相关网站名，非必填",new { @class = "title1" })
+            <br />
+            @Html.LabelFor(news => news.Link3, new { @class = "title" })  
+            @Html.TextBox("Link3")
+            @Html.Label("相关网站链接，非必填", new { @class = "title1" })
+            <br />
             @Html.LabelFor(news => news.IssueDate, new { @class = "title" })  
             @Html.TextBox("IssueDate", "", new { @readonly = "true" })
             @Html.ValidationMessageFor(news => news.IssueDate)
@@ -161,32 +170,48 @@ input[type="button"]:hover
         keyurl = '@Url.Content("~/api/getKeyWords?from=")';
         keyurl += $('#From').val();
         getKeyWordsInAdd(keyurl);
-    });
+        $("#Form").validate({
+            rules: {
+                Title: "required",
+                WebSite1: "required"
 
+            },
+            messages: {
+                Title: "请输入title",
+                WebSite1: "请输入web"
+            }
+        });
+    });
     $("#addKeyWord").click(function () {
         var keyword = $("#txKeyWord").val();
         if ((keyword.length > 5) || (keyword.length == 0)) {
             return;
         }
         var keywords=""
-        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='add(" + keyNo + ")'>" + keyword + "</span>");       
+        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='removekey(" + keyNo + ")'>" + keyword + "</span>");       
         $("#KeyWordslb span").each(function () { keywords+='.'+$(this).text()});
         $("#KeyWords").val(keywords+".");
         keyNo++;
         $("#txKeyWord").val("");
+        $("#Form").validate();
     });
     function keywords(keyword) {
-        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='add(" + keyNo + ")'>" + keyword + "</span>")
+        $("#KeyWordslb").append("<span id='key" + keyNo + "' onclick='removekey(" + keyNo + ")'>" + keyword + "</span>")
         keyNo++;
         var keywords = "";
         $("#KeyWordslb span").each(function () { keywords += '.' + $(this).text()});
-        $("#KeyWords").val(keywords+".");
+        $("#KeyWords").val(keywords + ".");
+        $("#Form").validate(); ;
     };
-    function add(keyNo) {
+    function removekey(keyNo) {
         $("#key" + keyNo).remove();
         var keywords = "";
         $("#KeyWordslb span").each(function () { keywords += '.' + $(this).text()});
-        $("#KeyWords").val(keywords+".");
+        $("#KeyWords").val(keywords + ".");
+        if ($("#KeyWords").val() == ".") {
+            $("#KeyWords").val("");
+        }
+        $("#Form").validate();
     };
     $("#IssueDate").datepicker({
         numberOfMonths: 1,
@@ -196,4 +221,10 @@ input[type="button"]:hover
         dateFormat: 'yy-mm-dd',
         maxDate:'+0d'
     });
+    $.validator.setDefaults({
+        ignore: [],
+        onkeyup:false
+    });
+    $("#Form").append("fwe");
+//    $("input[name='KeyWords']")
 </script>

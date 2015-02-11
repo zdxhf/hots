@@ -446,8 +446,10 @@ namespace hotsAPI.Controllers
                     //gu.Type = reader["Type"].ToString();
                     gu.Link1 = reader["Link1"].ToString();
                     gu.Link2 = reader["Link2"].ToString();
+                    gu.Link3 = reader["Link3"].ToString();
                     gu.WebSite1 = reader["WebSite1"].ToString();
                     gu.WebSite2 = reader["WebSite2"].ToString();
+                    gu.WebSite3 = reader["WebSite3"].ToString();
                     gu.IssueDate = DateTime.Parse(reader["IssueDate"].ToString()).ToShortDateString();
                     gu.Title = reader["Title"].ToString();
                     gu.KeyWords =reader["KeyWord"].ToString();
